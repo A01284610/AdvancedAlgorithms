@@ -1,0 +1,22 @@
+A01652327 Diego Esparza Hurtado
+- Implementación de lectura de archivo
+- Implementación de Kruskal.
+- Implementación de TSP.
+- Implementación de Dinic.
+- Apoyo y revisión de Voronoi.
+- Debugging
+- Documentación
+
+A01284610 Alejandro Lizárraga Vizcarra
+- Implementación de Kruskal.
+- Implementación de TSP.
+- Implementación de Dinic.
+- Apoyo y revisión de Voronoi.
+- Debugging
+- Documentación
+
+A00833547 Samuel Acosta Ugarte
+- Apoyo y revisión de Kruskal, TSP y Dinic.
+- Implementacion de Voronoi.
+- Debugging
+- Documentación

@@ -1,0 +1,33 @@
+import random
+
+# Define the dimensions of the grid
+n_rows, n_cols = 50, 50
+
+# Initialize the grid with zeros
+grid = [[0 for _ in range(n_cols)] for _ in range(n_rows)]
+
+# Set the starting point at the top-left corner
+current_row, current_col = 0, 0
+grid[current_row][current_col] = 1
+
+# Define a list of directions for the path to take
+directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+
+# Continue the path until the bottom-right corner is reached
+while (current_row, current_col) != (n_rows-1, n_cols-1):
+    # Randomly select a direction from the list
+    next_direction = random.choice(directions)
+    
+    # Calculate the next position based on the current position and the selected direction
+    next_row = current_row + next_direction[0]
+    next_col = current_col + next_direction[1]
+    
+    # Check if the next position is within the bounds of the grid
+    if 0 <= next_row < n_rows and 0 <= next_col < n_cols:
+        # Set the next position to 1 and update the current position
+        grid[next_row][next_col] = 1
+        current_row, current_col = next_row, next_col
+
+# Print the final grid
+for row in grid:
+    print(' '.join(str(cell) for cell in row))

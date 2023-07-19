@@ -1,0 +1,98 @@
+/*
+ * Fecha: 08 Junio 2023
+ * Autores:
+ *   Matricula: A01652327
+ *   Nombre: Diego Esparza Hurtado
+ *
+ *   Matricula: A01284610
+ *   Nombre: Alejandro Lizarraga Vizcarra
+ *
+ * Actividad 5.2 - Implementacion encontrarse en el medio (meet in the middle).
+ *    Se reciben 'n' personas con 'm' id's de gorras para obtener todas las combinaciones posibles donde no se repitan id's de gorras entre personas. CAMBIAR
+ *    Donde 1 <= n <= 10 ; 1 <= id <= 100. CMABIAR
+ *    Se imprimen todas las combinaciones que cumplen con el criterio y el numero total de combinaciones. CMABIAR
+ *
+ * Para compilar: 
+ * g++ -o a.out a01652327main.cpp
+ *
+ * Para ejecutar:
+ * ./a.out < test01.txt
+ * 
+*/
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+void backtrack(vector<long long>& nums, int index, long long sum, vector<long long>& sums) {
+    if (index == nums.size()) {
+        sums.push_back(sum);
+        return;
+    }
+    //cout << "1: index: " << index << " sum " << sum << endl;
+    //cout << "2: index: " << index << " sum " << sum+nums[index] << endl;
+    backtrack(nums, index + 1, sum + nums[index], sums);
+    backtrack(nums, index + 1, sum, sums);
+}
+
+int meetInTheMiddle(vector<long long>& nums, long long target) {
+
+    int n = nums.size();
+    
+    vector<long long> firstHalf(nums.begin(), nums.begin() + n/2);
+    vector<long long> secondHalf(nums.begin() + n/2, nums.end());
+    
+    vector<long long> sums1, sums2;
+    backtrack(firstHalf, 0, 0, sums1);
+    cout << "--------------" << endl;
+    backtrack(secondHalf, 0, 0, sums2);
+    
+    sort(sums2.begin(), sums2.end());
+    
+    int count = 0;
+
+    cout << "------------Vector" << endl;
+
+    for (int i = 0; i < sums2.size(); i++){
+        cout << sums2[i] << " ";
+    }
+
+    cout << endl;
+    
+    for (int i = 0; i < sums1.size(); i++) {
+        long long complement = target - sums1[i];
+        cout << "---------Parte 2: " << complement << endl;
+
+        auto it = lower_bound(sums2.begin(), sums2.end(), complement);
+        int low = (it - sums2.begin());
+        cout << "low: " << low << endl;
+        auto it2 = upper_bound(sums2.begin(), sums2.end(), complement);
+        int high = (it2 - sums2.begin());
+        cout << "high: " << high << endl;
+        int total = high-low;
+        cout << "total: " << total << endl;
+        count += total;
+    }
+    
+    return count;
+}
+
+int main() {
+    int N;
+    cin >> N;
+    
+    vector<long long> nums(N);
+    for (int i = 0; i < N; i++) {
+        cin >> nums[i];
+    }
+    
+    long long S;
+    cin >> S;
+    
+    int result = meetInTheMiddle(nums, S);
+    cout << result << endl;
+    
+    return 0;
+}
